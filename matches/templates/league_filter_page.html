@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Filtrar Ligas - Sports App{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<h1>Filtrar Ligas</h1>
+
+<form method="GET" action="{% url 'league_standings' %}">
+    Selecciona una fecha: 
+    <input type="date" id="date" name="date" value="{{ current_date }}">
+
+    Selecciona una temporada: 
+    <input type="number" id="season" name="season" value="{{ current_season }}">
+
+    Selecciona una liga: 
+    <select id="league" name="league">
+        {% for league in leagues %}
+            <option value="{{ league.league.id }}">
+                {{ league.league.name }} ({{ league.country.name }})
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Buscar</button>
+</form>
+{% endblock %}

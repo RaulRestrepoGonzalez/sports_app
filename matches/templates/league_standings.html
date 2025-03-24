@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tabla de Posiciones - Sports App{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<h1>Tabla de Posiciones</h1>
+<div id="wg-api-football-standings"
+     data-host="v3.football.api-sports.io"
+     data-key="126c43ebeb56579485963bf9a3bf232f"
+     data-league="{{ standings_data[0].league.id }}"
+     data-season="{{ standings_data[0].season }}"
+     data-theme=""
+     data-show-errors="false"
+     data-show-logos="true"
+     class="wg_loader">
+</div>
+<script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Resultados - Sports App{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<h1>Resultados de Partidos</h1>
+
+<!-- Formulario para filtrar partidos -->
+<form method="GET">
+    Selecciona una fecha: 
+    <input type="date" id="date" name="date" value="{{ current_date }}">
+
+    Selecciona una temporada: 
+    <input type="number" id="season" name="season" value="{{ current_season }}">
+
+    Selecciona una liga: 
+    <select id="league" name="league">
+        {% for league in leagues %}
+            <option value="{{ league.league.id }}" {% if league.league.id|stringformat:'s' == selected_league %}selected{% endif %}>
+                {{ league.league.name }} ({{ league.country.name }})
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Buscar</button>
+</form>
+
+{% if matches %}
+    <ul>
+        {% for match in matches %}
+            <li>
+                <strong>{{ match.teams.home.name }} vs {{ match.teams.away.name }}</strong><br>
+                Fecha: {{ match.fixture.date }}<br>
+                Estado: {{ match.fixture.status.long }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay partidos disponibles para los filtros seleccionados.</p>
+{% endif %}
+{% endblock %}
